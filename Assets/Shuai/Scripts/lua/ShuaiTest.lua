@@ -42,8 +42,8 @@ function _M.TestQ()
     --     }
     -- )
 
-    print_t(SpriteList, "SpriteList")
-    print_t(UnityEngine.SpriteList, "SpriteList")
+    print_t(CS.Shuai.SpriteRes, "SpriteRes")
+    -- print_t(UnityEngine.SpriteList, "SpriteList")
 
     -- local self = LanguagePanel
 

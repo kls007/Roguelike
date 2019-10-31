@@ -15,12 +15,12 @@ using System.Collections.Generic;
 namespace XLua.CSObjectWrap
 {
     using Utils = XLua.Utils;
-    public class SpriteListWrap 
+    public class ShuaiSpriteResWrap 
     {
         public static void __Register(RealStatePtr L)
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
-			System.Type type = typeof(SpriteList);
+			System.Type type = typeof(Shuai.SpriteRes);
 			Utils.BeginObjectRegister(type, L, translator, 0, 0, 1, 1);
 			
 			
@@ -52,7 +52,7 @@ namespace XLua.CSObjectWrap
 				if(LuaAPI.lua_gettop(L) == 1)
 				{
 					
-					SpriteList gen_ret = new SpriteList();
+					Shuai.SpriteRes gen_ret = new Shuai.SpriteRes();
 					translator.Push(L, gen_ret);
                     
 					return 1;
@@ -62,7 +62,7 @@ namespace XLua.CSObjectWrap
 			catch(System.Exception gen_e) {
 				return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
 			}
-            return LuaAPI.luaL_error(L, "invalid arguments to SpriteList constructor!");
+            return LuaAPI.luaL_error(L, "invalid arguments to Shuai.SpriteRes constructor!");
             
         }
         
@@ -82,7 +82,7 @@ namespace XLua.CSObjectWrap
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			
-                SpriteList gen_to_be_invoked = (SpriteList)translator.FastGetCSObj(L, 1);
+                Shuai.SpriteRes gen_to_be_invoked = (Shuai.SpriteRes)translator.FastGetCSObj(L, 1);
                 translator.Push(L, gen_to_be_invoked.spriteList);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
@@ -98,7 +98,7 @@ namespace XLua.CSObjectWrap
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			
-                SpriteList gen_to_be_invoked = (SpriteList)translator.FastGetCSObj(L, 1);
+                Shuai.SpriteRes gen_to_be_invoked = (Shuai.SpriteRes)translator.FastGetCSObj(L, 1);
                 gen_to_be_invoked.spriteList = (System.Collections.Generic.List<UnityEngine.Sprite>)translator.GetObject(L, 2, typeof(System.Collections.Generic.List<UnityEngine.Sprite>));
             
             } catch(System.Exception gen_e) {

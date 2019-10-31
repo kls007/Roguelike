@@ -106,9 +106,6 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(UnityEngine.Debug), UnityEngineDebugWrap.__Register);
         
         
-            translator.DelayWrapLoader(typeof(SpriteList), SpriteListWrap.__Register);
-        
-        
             translator.DelayWrapLoader(typeof(Tutorial.BaseClass), TutorialBaseClassWrap.__Register);
         
         
@@ -161,6 +158,9 @@ namespace XLua.CSObjectWrap
         
         
             translator.DelayWrapLoader(typeof(XLuaTest.FooExtension), XLuaTestFooExtensionWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(Shuai.SpriteRes), ShuaiSpriteResWrap.__Register);
         
         
             translator.DelayWrapLoader(typeof(Tutorial.DerivedClass.TestEnumInner), TutorialDerivedClassTestEnumInnerWrap.__Register);
