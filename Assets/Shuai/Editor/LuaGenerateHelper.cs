@@ -1,3 +1,4 @@
+using Shuai;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -39,6 +40,16 @@ public class LuaGenerateHelper
             if (item.GetComponent<Image>())
             {
                 exportImage(item.GetComponent<Image>(), level > 0);
+                ishaveComponent = true;
+            }
+            if (item.GetComponent<SpriteRes>())
+            {
+                exportSpriteRes(item.GetComponent<SpriteRes>(), level > 0);
+                ishaveComponent = true;
+            }
+            if (item.GetComponent<Animator>())
+            {
+                exportAnimator(item.GetComponent<Animator>(), level > 0);
                 ishaveComponent = true;
             }
             if (item.GetComponent<Toggle>())
@@ -218,6 +229,36 @@ public class LuaGenerateHelper
             var FormatString = inside ?
              "{0} = transform:Find(\"{1}\"):GetComponent(\"Image\")," :
              "self.{0} = transform:Find(\"{1}\"):GetComponent(\"Image\");";
+            ConstStringBuilder.AppendLine(string.Format(typeString + FormatString, name, GetFullPath(image.transform)));
+        }
+        
+        private void exportSpriteRes(SpriteRes image, bool inside = false)
+        {
+            var name = "SpriteRes_" + image.name.Substring(image.name.IndexOf('$') + 1);
+
+            var typeString = "";
+
+            var ExportFormatString = inside ? "{0}: UnityEngine.UI.Image," : " {0}: UnityEngine.UI.Image;";
+            ExportConstStringBuilder.AppendLine(string.Format(ExportFormatString, name));
+
+            var FormatString = inside ?
+             "{0} = transform:Find(\"{1}\"):GetComponent(\"SpriteRes\")," :
+             "self.{0} = transform:Find(\"{1}\"):GetComponent(\"SpriteRes\");";
+            ConstStringBuilder.AppendLine(string.Format(typeString + FormatString, name, GetFullPath(image.transform)));
+        }
+
+        private void exportAnimator(Animator image, bool inside = false)
+        {
+            var name = "Animator_" + image.name.Substring(image.name.IndexOf('$') + 1);
+
+            var typeString = "";
+
+            var ExportFormatString = inside ? "{0}: UnityEngine.UI.Image," : " {0}: UnityEngine.UI.Image;";
+            ExportConstStringBuilder.AppendLine(string.Format(ExportFormatString, name));
+
+            var FormatString = inside ?
+             "{0} = transform:Find(\"{1}\"):GetComponent(\"Animator\")," :
+             "self.{0} = transform:Find(\"{1}\"):GetComponent(\"Animator\");";
             ConstStringBuilder.AppendLine(string.Format(typeString + FormatString, name, GetFullPath(image.transform)));
         }
 

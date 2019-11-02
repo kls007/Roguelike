@@ -1,133 +1,119 @@
 test = test or {}
 local _M = test
 
+_M.view = {}
+
+local row = 7
+local col = 8
+local count = row * col
+
+local player =
+{
+    id = 1,
+    name = "玩家",
+    level = 1,
+    atk_value = 1,
+    hp_value = 1,
+    def_value = 1,
+}
+
 function _M.__init__()
-    -- print("test.__init__()")
-
-
-
-    local transform = UnityEngine.GameObject.Find("Canvas/Root_Panel/GamePanel").transform
-
-
-    local cells = UnityEngine.GameObject.FindGameObjectsWithTag("Cell")
-    print_t(cells.Length, "cells")
-
-    _M.view = {}
-    for i = 1, cells.Length, 1 do
-        local gameObject = cells[i - 1]
+    _M.view.gameObject = UnityEngine.GameObject.Find("Canvas/Root_Panel/GamePanel").gameObject
+    _M.view.transform = _M.view.gameObject.transform
+    local parent = _M.view.transform:Find("$ground");
+    local prefab = parent.transform:GetChild(0).gameObject
+    functions.SetActiveAllChildren(parent, false)
+    for index = 1, count, 1 do
+        local gameObject = UnityEngine.GameObject.Instantiate(prefab)
         local transform = gameObject.transform
-        _M.view[i] = {}
-        _M.view[i].gameObject = gameObject
-        _M.view[i].transform = transform
+        gameObject:SetActive(true)
+        gameObject.name = "cell_" .. index
+        transform.parent = parent.transform
 
-        _M.view[i].background = transform:Find("background")
-        -- _M.view[i].backgroundList = 
-        -- {
-        --     transform:Find("background/background1"),
-        --     transform:Find("background/background2"),
-        --     transform:Find("background/background3"),
-        --     transform:Find("background/background4"),
-        -- }
-        -- local random = math.random(1, 4)
-        -- for index, value in ipairs(_M.view[i].backgroundList) do
-        --     value.gameObject:SetActive(index == random)
-        -- end
+        local cell = _M.GetCell(gameObject.transform)
+
+        cell.headicon = math.random(1, cell.SpriteRes_headicon.spriteList.Count)
+        cell.level = math.random(1, cell.SpriteRes_frame.spriteList.Count)
         
-        
-        self.cell1= {
-        gameObject = transform:Find("ground/-$cell1").gameObject,
-        self.cell1 = transform:Find("ground/-$cell1");
-        Image_background = transform:Find("ground/-$cell1/$background"):GetComponent("Image"),
-        self.monster = transform:Find("ground/-$cell1/$monster");
-        Image_headicon = transform:Find("ground/-$cell1/$monster/$headicon"):GetComponent("Image"),
-        Image_frame = transform:Find("ground/-$cell1/$monster/$frame"):GetComponent("Image"),
-        Image_atk = transform:Find("ground/-$cell1/$monster/$atk"):GetComponent("Image"),
-        Text_atk_value = transform:Find("ground/-$cell1/$monster/$atk/$atk_value"):GetComponent("Text"),
-        Image_hp = transform:Find("ground/-$cell1/$monster/$hp"):GetComponent("Image"),
-        Text_hp_value = transform:Find("ground/-$cell1/$monster/$hp/$hp_value"):GetComponent("Text"),
-        Image_def = transform:Find("ground/-$cell1/$monster/$def"):GetComponent("Image"),
-        Text_def_value = transform:Find("ground/-$cell1/$monster/$def/$def_value"):GetComponent("Text"),
-        }
-        self.cell2= {
-        gameObject = transform:Find("ground/-$cell2").gameObject,
-        self.cell2 = transform:Find("ground/-$cell2");
-        Image_background = transform:Find("ground/-$cell2/$background"):GetComponent("Image"),
-        self.monster = transform:Find("ground/-$cell2/$monster");
-        Image_headicon = transform:Find("ground/-$cell2/$monster/$headicon"):GetComponent("Image"),
-        Image_frame = transform:Find("ground/-$cell2/$monster/$frame"):GetComponent("Image"),
-        Image_atk = transform:Find("ground/-$cell2/$monster/$atk"):GetComponent("Image"),
-        Text_atk_value = transform:Find("ground/-$cell2/$monster/$atk/$atk_value"):GetComponent("Text"),
-        Image_hp = transform:Find("ground/-$cell2/$monster/$hp"):GetComponent("Image"),
-        Text_hp_value = transform:Find("ground/-$cell2/$monster/$hp/$hp_value"):GetComponent("Text"),
-        Image_def = transform:Find("ground/-$cell2/$monster/$def"):GetComponent("Image"),
-        Text_def_value = transform:Find("ground/-$cell2/$monster/$def/$def_value"):GetComponent("Text"),
-        }
-        self.cell3= {
-        gameObject = transform:Find("ground/-$cell3").gameObject,
-        self.cell3 = transform:Find("ground/-$cell3");
-        Image_background = transform:Find("ground/-$cell3/$background"):GetComponent("Image"),
-        self.monster = transform:Find("ground/-$cell3/$monster");
-        Image_headicon = transform:Find("ground/-$cell3/$monster/$headicon"):GetComponent("Image"),
-        Image_frame = transform:Find("ground/-$cell3/$monster/$frame"):GetComponent("Image"),
-        Image_atk = transform:Find("ground/-$cell3/$monster/$atk"):GetComponent("Image"),
-        Text_atk_value = transform:Find("ground/-$cell3/$monster/$atk/$atk_value"):GetComponent("Text"),
-        Image_hp = transform:Find("ground/-$cell3/$monster/$hp"):GetComponent("Image"),
-        Text_hp_value = transform:Find("ground/-$cell3/$monster/$hp/$hp_value"):GetComponent("Text"),
-        Image_def = transform:Find("ground/-$cell3/$monster/$def"):GetComponent("Image"),
-        Text_def_value = transform:Find("ground/-$cell3/$monster/$def/$def_value"):GetComponent("Text"),
-        }
-        self.cell4= {
-        gameObject = transform:Find("ground/-$cell4").gameObject,
-        self.cell4 = transform:Find("ground/-$cell4");
-        Image_background = transform:Find("ground/-$cell4/$background"):GetComponent("Image"),
-        self.monster = transform:Find("ground/-$cell4/$monster");
-        Image_headicon = transform:Find("ground/-$cell4/$monster/$headicon"):GetComponent("Image"),
-        Image_frame = transform:Find("ground/-$cell4/$monster/$frame"):GetComponent("Image"),
-        Image_atk = transform:Find("ground/-$cell4/$monster/$atk"):GetComponent("Image"),
-        Text_atk_value = transform:Find("ground/-$cell4/$monster/$atk/$atk_value"):GetComponent("Text"),
-        Image_hp = transform:Find("ground/-$cell4/$monster/$hp"):GetComponent("Image"),
-        Text_hp_value = transform:Find("ground/-$cell4/$monster/$hp/$hp_value"):GetComponent("Text"),
-        Image_def = transform:Find("ground/-$cell4/$monster/$def"):GetComponent("Image"),
-        Text_def_value = transform:Find("ground/-$cell4/$monster/$def/$def_value"):GetComponent("Text"),
-        }
+        cell.atk_value = math.random(1, 10)
+        cell.hp_value = math.random(1, 10)
+        cell.ef_value = math.random(1, 10)
 
+        _M.InitCell(cell)
 
+        UnityEngine.EventTriggerListener.Get(cell.Image_background.gameObject, index).onClick = function()
+            -- TipManager.Show(index)
 
+            if cell.hp_value <= 0 then
+                TipManager.Show("该怪物已死亡")
+                return
+            end
 
+            cell.hp_value = cell.hp_value - player.atk_value
+            if cell.hp_value <= 0 then
+                cell.hp_value = 0
+                _M.DeadCell(cell)
+            end
+            _M.RefreshEnergy(cell)
 
-
-        _M.view[i].monster = {}
-        _M.view[i].monster.gameObject = transform:Find("monster").gameObject
-        _M.view[i].monster.headicon = transform:Find("monster/headicon").gameObject
-        _M.view[i].monster.frame = transform:Find("monster/frame"):GetComponent(typeof(UnityEngine.UI.Image))
-
-        
-        _M.view[i].monster.frame_SpriteRes = transform:Find("monster/frame"):GetComponent(typeof(CS.Shuai.SpriteRes))
-        local random = math.random(1, 3)
-        print_t(_M.view[i].monster.frame_SpriteRes.spriteList, "_M.view[i].monster.frame_spriteList")
-        -- print_t(_M.view[i].monster.frame_spriteList.spriteList[1], "_M.view[i].monster.frame_spriteList")
-
-        _M.view[i].monster.frame.sprite = _M.view[i].monster.frame_SpriteRes.spriteList[random - 1]
-        
+            cell.Animator_hurt:Play("Attack_Animation")
+        end
     end
-
-
-    -- print_t(_M.view, "_M.view")
-
-    -- local buttons_c = _M.view.enemy.transform:GetComponentsInChildren(typeof(UnityEngine.UI.Button))
-    -- _M.view.buttons_lua = {}
-    -- for i = 1, buttons_c.Length, 1 do
-    --     _M.view.buttons_lua[i] = buttons_c[i - 1]
-    -- end
-
-    -- for index, value in ipairs(_M.view.buttons_lua) do
-    --     UnityEngine.EventTriggerListener.Get(value.gameObject, index).onClick = function()
-    --         TipManager.Show(index)
-    --     end
-    -- end
-    
-
 end
 
+function _M.InitCell(cell)
+    cell.Image_dead.gameObject:SetActive(false)
+
+    local bg = math.random(1, cell.SpriteRes_background.spriteList.Count)
+    cell.Image_background.sprite = cell.SpriteRes_background.spriteList[bg - 1]
+
+    cell.Image_headicon.sprite = cell.SpriteRes_headicon.spriteList[cell.headicon - 1]
+    cell.Image_frame.sprite = cell.SpriteRes_frame.spriteList[cell.level - 1]
+    
+    _M.RefreshEnergy(cell)
+end
+
+function _M.RefreshEnergy(cell)
+    cell.Text_atk_value.text = cell.atk_value
+    cell.Text_hp_value.text = cell.hp_value
+    cell.Text_def_value.text = cell.def_value
+end
+
+function _M.DeadCell(cell)
+    cell.Image_dead.gameObject:SetActive(true)
+end
+
+function _M.GetCell(transform)
+    local self = {}
+
+    self.id = 1
+    self.name = "椎命由奈"
+    self.level = 1
+    self.atk_value = 1
+    self.hp_value = 1
+    self.def_value = 1
+
+    -- self.ground = transform:Find("$ground");
+    -- self.cell = transform:Find("$ground/$cell");
+    self.Image_background = transform:Find("$background"):GetComponent("Image");
+    self.SpriteRes_background = transform:Find("$background"):GetComponent("SpriteRes");
+    self.monster = transform:Find("$monster");
+    self.Image_headicon = transform:Find("$monster/$headicon"):GetComponent("Image");
+    self.SpriteRes_headicon = transform:Find("$monster/$headicon"):GetComponent("SpriteRes");
+    self.Image_frame = transform:Find("$monster/$frame"):GetComponent("Image");
+    self.SpriteRes_frame = transform:Find("$monster/$frame"):GetComponent("SpriteRes");
+    self.Image_atk = transform:Find("$monster/$atk"):GetComponent("Image");
+    self.Text_atk_value = transform:Find("$monster/$atk/$atk_value"):GetComponent("Text");
+    self.Image_hp = transform:Find("$monster/$hp"):GetComponent("Image");
+    self.Text_hp_value = transform:Find("$monster/$hp/$hp_value"):GetComponent("Text");
+    self.Image_def = transform:Find("$monster/$def"):GetComponent("Image");
+    self.Text_def_value = transform:Find("$monster/$def/$def_value"):GetComponent("Text");
+    self.Image_hurt = transform:Find("$hurt"):GetComponent("Image");
+    self.Animator_hurt = transform:Find("$hurt"):GetComponent("Animator");
+    self.Image_dead = transform:Find("$dead"):GetComponent("Image");
+
+
+    return self
+end
 
 _M.__init__()

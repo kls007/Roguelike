@@ -53,3 +53,12 @@ function table.getIndex(myTable, object)
 
     return key_index
 end
+
+-- 设置所有子物体是否可见
+function functions.SetActiveAllChildren(parent, active)
+    local parent = parent.transform
+    for i = 0, parent.childCount - 1, 1 do
+        local child = parent:GetChild(i).gameObject
+        child.gameObject:SetActive(active)
+    end
+end
