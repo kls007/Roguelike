@@ -3,8 +3,8 @@ local _M = test
 
 _M.view = {}
 
-local row = 7
-local col = 8
+local row = 13 -- 7
+local col = 13 -- 8
 local count = row * col
 
 local player =

@@ -10,6 +10,8 @@ TagManager:
   - Enemy
   - DeadLine
   - Cell
+  - door
+  - item
   layers:
   - Default
   - TransparentFX
@@ -19,11 +21,11 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
-  - 
-  - 
-  - 
-  - 
+  - ground
+  - wall
+  - door
+  - item
+  - monster
   - 
   - 
   - 
@@ -47,12 +49,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: bg
+  - name: ground
     uniqueID: 3811539975
     locked: 0
-  - name: map
+  - name: wall
     uniqueID: 3144936653
     locked: 0
-  - name: item
+  - name: door
     uniqueID: 2014655829
+    locked: 0
+  - name: item
+    uniqueID: 2584258997
+    locked: 0
+  - name: monster
+    uniqueID: 2071058547
     locked: 0
