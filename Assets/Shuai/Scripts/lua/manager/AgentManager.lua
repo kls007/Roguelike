@@ -42,4 +42,59 @@ function _M.CsCallLua(keyCode)
     tools.trycatch(ShuaiTest.Refresh, {params = {keyCode = keyCode}, errorMode = true})
 end
 
+
+function _M.MouseClick(gameObject)
+    -- print_t(gameObject, "gameObject")
+    -- print_t(gameObject.tag, "tag")
+
+    local item = gameObject.transform:GetComponent("Item")
+    print_t(item, "item")
+    print_t(item.id, "id")
+    print_t(item.type, "type")
+
+    -- 钥匙
+    if item.id == 101 then
+        SB.key1 = SB.key1 + 1
+    elseif item.id == 102 then
+        SB.key2 = SB.key2 + 1
+    elseif item.id == 102 then
+        SB.key3 = SB.key3 + 1
+
+    -- 攻防
+    elseif item.id == 201 then
+        SB.atk = SB.atk + 1
+    elseif item.id == 202 then
+        SB.def = SB.def + 1
+
+    -- hp血瓶
+    elseif item.id == 301 then
+        SB.hp = SB.hp + 100
+    elseif item.id == 302 then
+        SB.hp = SB.hp + 200
+
+    -- 门
+    elseif item.id == 3 then
+        if SB.key1 >= 1 then
+            SB.key1 = SB.key1 - 1
+        else
+            TipManager.Show("钥匙1不足")
+            return
+        end
+    elseif item.id == 4 then
+        if SB.key2 >= 1 then
+            SB.key2 = SB.key2 - 1
+        else
+            TipManager.Show("钥匙2不足")
+            return
+        end
+    end
+
+    UnityEngine.Object.DestroyImmediate(gameObject)
+    HudPanel:Refresh()
+
+
+    -- Event.Dispatch("KeyboardEvent", {keyCode = keyCode})
+    -- tools.trycatch(ShuaiTest.Refresh, {params = {keyCode = keyCode}, errorMode = true})
+end
+
 _M.__init__()

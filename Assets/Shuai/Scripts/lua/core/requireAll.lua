@@ -17,6 +17,7 @@ function _M.require()
     require "core/GameUpdate"
     require "core/actions"
     require "core/GlobalObject"
+    require "core/SB"
 
     require "manager/GameManager"
     require "manager/ABManager"
@@ -27,6 +28,7 @@ function _M.require()
     
     require "ShuaiTest"
 
+    
 
     _M.requireGUI()
 end
@@ -43,7 +45,7 @@ function _M.requireGUI()
     require "gui/GameRecordPanel" -- 游戏存档界面
     require "gui/GamePanel" -- 游戏主界面
     
-    
+    require "gui/HudPanel" -- Hud界面
     
 end
 

@@ -6,8 +6,10 @@ using XLua;
 
 public class LuaHuiDiao : MonoBehaviour
 {
-    [CSharpCallLua]
+    [CSharpCallLua] //可以不加
     public delegate void CsCallLua(string keyCode);
+    [CSharpCallLua] //可以不加
+    public delegate void CsCallLua_MouseClick(GameObject go);
 
     void OnGUI()
     {
@@ -17,6 +19,20 @@ public class LuaHuiDiao : MonoBehaviour
     void Update()
     {
         GameManager.luaenv.DoString("GameUpdate.Update()");
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            //Debug.Log("鼠标单击");
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+            if (hit.collider)
+            {
+                CsCallLua_MouseClick mouseClick = GameManager.luaenv.Global.GetInPath<CsCallLua_MouseClick>("AgentManager.MouseClick");
+                mouseClick(hit.collider.gameObject);
+            }
+        }
     }
 
     //键盘监听回调

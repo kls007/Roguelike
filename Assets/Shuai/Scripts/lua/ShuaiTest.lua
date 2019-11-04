@@ -45,8 +45,13 @@ function _M.TestQ()
     -- print_t(CS.Shuai.SpriteRes, "SpriteRes")
     -- print_t(UnityEngine.SpriteList, "SpriteList")
 
-    local n = math.random(1, 4)
-    print_t(n)
+    -- local n = math.random(1, 4)
+    -- print_t(n)
+
+    -- print_t(SB, "帅哥")
+
+    print_t(CS.Shuai.SpriteRes, "SpriteRes")
+    print_t(CS.Shuai.Item, "Item")
 
     -- local self = LanguagePanel
 

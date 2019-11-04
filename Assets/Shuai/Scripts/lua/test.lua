@@ -116,4 +116,4 @@ function _M.GetCell(transform)
     return self
 end
 
-_M.__init__()
+-- _M.__init__()
