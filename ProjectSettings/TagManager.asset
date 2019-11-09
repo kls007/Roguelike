@@ -4,14 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Collection
-  - cherry
-  - gem
-  - Enemy
-  - DeadLine
-  - Cell
   - door
   - item
+  - ground
+  - wall
+  - exit
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -23,11 +21,11 @@ TagManager:
   - 
   - ground
   - wall
+  - exit
   - door
   - item
-  - monster
-  - 
-  - 
+  - enemy
+  - player
   - 
   - 
   - 
@@ -55,12 +53,18 @@ TagManager:
   - name: wall
     uniqueID: 3144936653
     locked: 0
+  - name: exit
+    uniqueID: 2697710629
+    locked: 0
   - name: door
     uniqueID: 2014655829
     locked: 0
   - name: item
     uniqueID: 2584258997
     locked: 0
-  - name: monster
+  - name: enemy
     uniqueID: 2071058547
+    locked: 0
+  - name: player
+    uniqueID: 2321098841
     locked: 0

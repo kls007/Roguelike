@@ -124,6 +124,11 @@
      <Compile Include="Assets\Shuai\Scripts\CSharp\EventTriggerListener.cs" />
      <Compile Include="Assets\Shuai\Scripts\CSharp\loadAssetBundle.cs" />
      <Compile Include="Assets\Shuai\Scripts\CSharp\LuaHuiDiao.cs" />
+     <Compile Include="Assets\Shuai\Scripts\CSharp\magicTower\Door.cs" />
+     <Compile Include="Assets\Shuai\Scripts\CSharp\magicTower\Element.cs" />
+     <Compile Include="Assets\Shuai\Scripts\CSharp\magicTower\Enemy.cs" />
+     <Compile Include="Assets\Shuai\Scripts\CSharp\magicTower\Exit.cs" />
+     <Compile Include="Assets\Shuai\Scripts\CSharp\magicTower\Floor.cs" />
      <Compile Include="Assets\Shuai\Scripts\CSharp\magicTower\Item.cs" />
      <Compile Include="Assets\Shuai\Scripts\CSharp\manager\GameManager.cs" />
      <Compile Include="Assets\Shuai\Scripts\CSharp\manager\ResourceManager.cs" />

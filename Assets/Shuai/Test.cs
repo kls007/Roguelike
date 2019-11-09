@@ -14,9 +14,9 @@ using Shuai;
 public class Test : MonoBehaviour
 {
 
-    private const string ORIGIN_DIR = "\\Atlas"; //需要转换的目录(手动修改目录)    
+    private const string ORIGIN_DIR = "\\Test\\1"; //需要转换的目录(手动修改目录)    
 
-    private const string TARGET_DIR = "\\Resources\\prefabs"; //转换后放入prefab的目录  
+    private const string TARGET_DIR = "\\Test\\2"; //转换后放入prefab的目录  
     void Awake()
     {
         
@@ -47,9 +47,7 @@ public class Test : MonoBehaviour
 
 
     ////// 将目录下所有图片转成Sprite prefab
-
-    ///[MenuItem("Tools/batch/batchCreateSpritePrefabInPath")]    
-
+    [MenuItem("Tools/batchCreateSpritePrefabInPath")]
     public static void batchCreateSpritePrefabInPath()
     {
         string targetDir = Application.dataPath + TARGET_DIR;
@@ -181,8 +179,7 @@ public class Test : MonoBehaviour
             //创建绑定了贴图的 GameObject 对象            
 
             GameObject go = new GameObject(sprite.name);
-
-            go.AddComponent().sprite = sprite;
+            go.AddComponent<SpriteRenderer>().sprite = sprite;
 
             EditorUtility.DisplayProgressBar("创建" + sprite.name, "创建" + sprite.name, 1f);
 

@@ -109,8 +109,9 @@
      <Compile Include="Assets\Cinemachine\PostFX\Editor\CinemachinePostProcessingEditor.cs" />
      <Compile Include="Assets\Cinemachine\PostFX\Editor\PostFXAutoImport.cs" />
      <Compile Include="Assets\Cinemachine\Timeline\Editor\CinemachineShotEditor.cs" />
+     <Compile Include="Assets\Editor\ExportAB.cs" />
+     <Compile Include="Assets\Editor\KuoZhan.cs" />
      <Compile Include="Assets\Shuai\Editor\LuaGenerateHelper.cs" />
-     <Compile Include="Assets\Shuai\Scripts\Editor\ExportAB.cs" />
      <Compile Include="Assets\XLua\Editor\ExampleConfig.cs" />
      <Compile Include="Assets\XLua\Examples\13_BuildFromCLI\Editor\BuildFromCLI.cs" />
      <Compile Include="Assets\XLua\Src\Editor\Generator.cs" />
