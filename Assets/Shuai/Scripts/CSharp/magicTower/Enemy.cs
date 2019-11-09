@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using XLua;
 
-[LuaCallCSharp]
-public class Enemy : Element
+namespace Shuai
 {
+    [LuaCallCSharp]
+    public class Enemy : Element
+    {
     
+    }
 }

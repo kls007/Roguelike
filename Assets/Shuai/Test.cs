@@ -47,10 +47,8 @@ public class Test : MonoBehaviour
             }
         }
     }
-    //[MenuItem("Assets/- File Usages #1", false, 30)]
 
-    //[MenuItem("Tools/Selection #1", false, 30)]
-    
+  
 
     //一键修改预设里面的图片
     [MenuItem("Custom Editor/ChangeIconName")]

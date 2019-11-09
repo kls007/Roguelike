@@ -44,13 +44,49 @@ end
 
 
 function _M.MouseClick(gameObject)
+    GameManager.Main(gameObject)
+
+do return end
+
     -- print_t(gameObject, "gameObject")
     -- print_t(gameObject.tag, "tag")
 
-    local item = gameObject.transform:GetComponent("Item")
+    local item = gameObject.transform:GetComponent("Element")
+    local exit = gameObject.transform:GetComponent("Exit")
+    print_t(exit, "exit")
     print_t(item, "item")
     print_t(item.id, "id")
     print_t(item.type, "type")
+
+    if item.id == 1 then
+        SB.floor = SB.floor + 1
+        TipManager.Show("上一层")
+    elseif item.id == 2 then
+        SB.floor = SB.floor - 1
+        TipManager.Show("下一层")
+    end
+
+    HudPanel:Refresh()
+
+
+
+
+    -- 门
+    if item.id == 1 then
+        if SB.key1 >= 1 then
+            SB.key1 = SB.key1 - 1
+        else
+            TipManager.Show("钥匙1不足")
+            return
+        end
+    elseif item.id == 2 then
+        if SB.key2 >= 1 then
+            SB.key2 = SB.key2 - 1
+        else
+            TipManager.Show("钥匙2不足")
+            return
+        end
+    end
 
     -- 钥匙
     if item.id == 101 then
@@ -71,23 +107,8 @@ function _M.MouseClick(gameObject)
         SB.hp = SB.hp + 100
     elseif item.id == 302 then
         SB.hp = SB.hp + 200
-
-    -- 门
-    elseif item.id == 3 then
-        if SB.key1 >= 1 then
-            SB.key1 = SB.key1 - 1
-        else
-            TipManager.Show("钥匙1不足")
-            return
-        end
-    elseif item.id == 4 then
-        if SB.key2 >= 1 then
-            SB.key2 = SB.key2 - 1
-        else
-            TipManager.Show("钥匙2不足")
-            return
-        end
     end
+    
 
     UnityEngine.Object.DestroyImmediate(gameObject)
     HudPanel:Refresh()
