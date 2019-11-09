@@ -7,74 +7,21 @@ using UnityEditor;
 using UnityEngine.UI;
 using XLua;
 using Shuai;
+  
+
+////// 将目录下所有图片转成Sprite prefab
 
 public class Test : MonoBehaviour
 {
-    public Tilemap tilemap;
-    public TileBase tb;
 
-    public Grid grid;
-    
+    private const string ORIGIN_DIR = "\\Atlas"; //需要转换的目录(手动修改目录)    
+
+    private const string TARGET_DIR = "\\Resources\\prefabs"; //转换后放入prefab的目录  
     void Awake()
     {
         
     }
-    [MenuItem("Tools/检测Text字体设置是否规范")]
-    public static void CheckTextFont()
-    {
-        string[] allPath = AssetDatabase.FindAssets("t:Prefab", new string[] { "Assets/Test" });
-        Debug.Log(allPath);
-        Debug.Log(allPath.Length);
 
-        for (int i = 0; i < allPath.Length; i++)
-        {
-            string path = AssetDatabase.GUIDToAssetPath(allPath[i]);
-            var obj = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)) as GameObject;
-            if (obj != null)
-            {
-                Image image = obj.transform.Find("main/Button_close").GetComponent<Image>();
-                Debug.Log(image);
-
-                //var texts = obj.GetComponentsInChildren<Text>();
-                //foreach (var text in texts)
-                //{
-                //    if (text.font.name == "RADIO" || text.font.name == "eurostile" || text.font.name == "Arial")
-                //    {
-                //        Debug.Log("预制体：[" + obj.name + "] 的组件 [" + text.name + "] 有误");
-                //        //                        break;
-                //    }
-                //}
-            }
-        }
-    }
-
-  
-
-    //一键修改预设里面的图片
-    [MenuItem("Custom Editor/ChangeIconName")]
-    static void BuildPCChangeIconName()
-    {
-        Debug.Log(Application.dataPath);
-        //存放预设目录
-        string path = Application.dataPath + "/Test/";
-        Debug.Log(path);
-        List<GameObject> files = new List<GameObject>();
-        string[] filePaths = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
-        for (int i = 0; i < filePaths.Length; ++i)
-        {
-            if (filePaths[i].Contains(".meta"))
-                continue;
-            //string filePath = cut2AssetFolder(filePaths[i]);
-            //GameObject file = AssetDatabase.LoadAssetAtPath(filePath, typeof(GameObject)) as GameObject;
-            //if (file != null)
-            //    files.Add(file);
-        }
-    }
-
-        void ExplosionLogic(Vector3Int cellPos)
-    {
-        tilemap.SetTile(cellPos, null);
-    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -85,28 +32,195 @@ public class Test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("A");
-            //animator.Play("Attack_Animation");
-            tilemap.ClearAllTiles();
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
             Debug.Log("S");
-            //animation.Play();
-            //animator.StartPlayback();
-
-            TileBase tb1 = tilemap.GetTile(new Vector3Int(0, 0, 0));
-            Debug.Log(tb1);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             Debug.Log("D");
-
-            TileBase tb1 = tilemap.GetTile(new Vector3Int(0, 0, 0));
-            Debug.Log(tb1);
-            tilemap.SetTile(Vector3Int.zero, tb);
         }
     }
-    
+
+
+    ////// 将目录下所有图片转成Sprite prefab
+
+    ///[MenuItem("Tools/batch/batchCreateSpritePrefabInPath")]    
+
+    public static void batchCreateSpritePrefabInPath()
+    {
+        string targetDir = Application.dataPath + TARGET_DIR;
+        string originDir = Application.dataPath + ORIGIN_DIR;
+
+        //if (!Directory.Exists(originDir))
+        //{
+        //    EditorUtility.DisplayDialog("错误", originDir.Replace("\\", "/") + "目录不存在", "确定"); return;
+        //}
+        //if (!File.Exists(targetDir)) Directory.CreateDirectory(targetDir);
+
+        ////如果目录不存在创建空的目标目录        
+        DirectoryInfo originDirInfo = new DirectoryInfo(originDir);
+
+        //创建prefab
+        makeSpritePrefabs(originDirInfo.GetFiles("*.jpg", SearchOption.AllDirectories), targetDir);
+        makeSpritePrefabs(originDirInfo.GetFiles("*.png", SearchOption.AllDirectories), targetDir);
+        EditorUtility.ClearProgressBar();
+    }
+
+    ////// 将目录下所有图片转成prefab
+
+    ///[MenuItem("Tools/batch/batchCreateImagePrefabInPath")]    
+
+    //    public static void batchCreateImagePrefabInPath()
+    //    {
+
+    //        string targetDir = Application.dataPath + TARGET_DIR;
+
+    //        string originDir = Application.dataPath + ORIGIN_DIR;
+
+    //        if (!Directory.Exists(originDir)) { EditorUtility.DisplayDialog("错误", originDir.Replace("\\", "/") + "目录不存在", "确定"); return; }
+
+    //        if (!File.Exists(targetDir)) Directory.CreateDirectory(targetDir); //如果目录不存在创建空的目标目录        DirectoryInfo originDirInfo = new DirectoryInfo(originDir);        //创建prefab        makeImagePrefabs(originDirInfo.GetFiles("*.jpg", SearchOption.AllDirectories), targetDir);        makeImagePrefabs(originDirInfo.GetFiles("*.png", SearchOption.AllDirectories), targetDir);        EditorUtility.ClearProgressBar();    }    ////// 创建image的Prefabs
+
+    ////////文件数据    ///目标目录    
+
+    //    private static void makeImagePrefabs(FileInfo[] files, string targetDir)
+
+    //    {
+    //        foreach (FileInfo file in files)
+
+    //        {
+
+    //            //获取全路径            
+
+    //            string allPath = file.FullName;
+
+    //            MonoBehaviour.print(allPath);
+
+    //            //获取资源路径            
+
+    //            string assetPath = allPath.Substring(allPath.IndexOf("Assets"));
+
+    //            MonoBehaviour.print("assetPath " + assetPath);
+
+    //            //加载贴图            
+
+    //            Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
+
+    //            //创建绑定了贴图的 GameObject 对象            
+
+    //            GameObject go = new GameObject(sprite.name);
+
+    //            go.AddComponent().sprite = sprite;
+
+    //            go.GetComponent().sizeDelta = new Vector2(sprite.rect.width, sprite.rect.height);
+
+    //            EditorUtility.DisplayProgressBar("创建" + sprite.name, "创建" + sprite.name, 1f);
+
+    //            //获取图片名称            
+
+    //            string imageName = assetPath.Replace("Assets" + ORIGIN_DIR + "\\", "");
+
+    //            //去掉后缀            
+
+    //            imageName = imageName.Substring(0, imageName.IndexOf("."));
+
+    //            //得到最终路径            
+
+    //            string prefabPath = targetDir + "\\" + imageName + ".prefab";
+
+    //            //得到应用当前目录的路径            
+
+    //            prefabPath = prefabPath.Substring(prefabPath.IndexOf("Assets"));
+
+    //            //创建目录            
+
+    //            Directory.CreateDirectory(prefabPath.Substring(0, prefabPath.LastIndexOf("\\")));
+
+    //            //生成预制件            
+
+    //            PrefabUtility.CreatePrefab(prefabPath.Replace("\\", "/"), go);
+
+    //            //销毁对象            
+
+    //            GameObject.DestroyImmediate(go);
+    //        }
+
+    //        EditorUtility.ClearProgressBar();
+    //    }
+
+    //    ////// 创建sprite的Prefabs
+
+    //    //////文件数据    ///目标目录   
+
+    private static void makeSpritePrefabs(FileInfo[] files, string targetDir)
+    {
+
+        foreach (FileInfo file in files)
+        {
+
+            //获取全路径            
+
+            string allPath = file.FullName;
+
+            MonoBehaviour.print(allPath);
+
+            //获取资源路径            
+
+            string assetPath = allPath.Substring(allPath.IndexOf("Assets"));
+
+            MonoBehaviour.print("assetPath " + assetPath);
+
+            //加载贴图            
+
+            Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
+
+            //创建绑定了贴图的 GameObject 对象            
+
+            GameObject go = new GameObject(sprite.name);
+
+            go.AddComponent().sprite = sprite;
+
+            EditorUtility.DisplayProgressBar("创建" + sprite.name, "创建" + sprite.name, 1f);
+
+            //获取图片名称
+
+            string imageName = assetPath.Replace("Assets" + ORIGIN_DIR + "\\", "");
+
+            //去掉后缀
+
+            imageName = imageName.Substring(0, imageName.IndexOf("."));
+
+            //得到最终路径
+
+            string prefabPath = targetDir + "\\" + imageName + ".prefab";
+
+            //得到应用当前目录的路径
+
+            prefabPath = prefabPath.Substring(prefabPath.IndexOf("Assets"));
+
+            //创建目录
+
+            Directory.CreateDirectory(prefabPath.Substring(0, prefabPath.LastIndexOf("\\")));
+
+            //生成预制件
+
+            PrefabUtility.CreatePrefab(prefabPath.Replace("\\", "/"), go);
+
+            //销毁对象
+
+            GameObject.DestroyImmediate(go);
+
+        }
+
+        EditorUtility.ClearProgressBar();
+
+    }
+
+    //}
+
+
 }
