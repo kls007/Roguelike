@@ -4,7 +4,7 @@ using UnityEngine;
 using XLua;
 
 [LuaCallCSharp]
-public class Item : Element
+public class Door : Element
 {
     
 }

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 50049164189082521}
   - component: {fileID: 1625667847513373674}
   - component: {fileID: 961999984489791810}
-  - component: {fileID: 470539620864563556}
+  - component: {fileID: 8563098936244562452}
   m_Layer: 0
-  m_Name: door
+  m_Name: exit
   m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 840e956860cd2234bb9064b8308c9563, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f2a83a48de76fc241a3ede136940322b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,11 +123,7 @@ MonoBehaviour:
   spriteList:
   - {fileID: 21300000, guid: f2a83a48de76fc241a3ede136940322b, type: 3}
   - {fileID: 21300000, guid: bf0fc6569a97ccb42a6749d9c6af0316, type: 3}
-  - {fileID: 21300000, guid: 840e956860cd2234bb9064b8308c9563, type: 3}
-  - {fileID: 21300002, guid: 840e956860cd2234bb9064b8308c9563, type: 3}
-  - {fileID: 21300004, guid: 840e956860cd2234bb9064b8308c9563, type: 3}
-  - {fileID: 21300006, guid: 840e956860cd2234bb9064b8308c9563, type: 3}
---- !u!114 &470539620864563556
+--- !u!114 &8563098936244562452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2929002315691631850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adcda34a7da90e74f8d04ec8e346c40b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bee80e3f9efad640ba44b57b4f5a00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
