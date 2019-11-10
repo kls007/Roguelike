@@ -57,13 +57,9 @@ public class SpriteToPrefab : MonoBehaviour
                     makeSpritePrefabs(file, targetDir, (i / 4) + 1, type, tag, layer);
                 }
             }
-            
         }
-
-        //EditorUtility.ClearProgressBar();
     }
-
-
+    
     private static void makeSpritePrefabs(FileInfo file, string targetDir, int id, Element.ElementType type, string tag, string layer)
     {
         //获取全路径
@@ -98,7 +94,7 @@ public class SpriteToPrefab : MonoBehaviour
         string imageName = assetPath.Replace("Assets" + ORIGIN_DIR + "\\", "");
 
         //去掉后缀
-        imageName = imageName.Substring(0, imageName.IndexOf("."));
+        imageName = tag + "_" + id; // imageName.Substring(0, imageName.IndexOf("."));
 
         //得到最终路径
         string prefabPath = targetDir + "\\" + imageName + ".prefab";
