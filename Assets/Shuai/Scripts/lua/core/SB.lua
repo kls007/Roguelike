@@ -5,7 +5,7 @@ SB =
     atk = 1,
     def = 1,
     
-    money = 0,
+    gold = 0,
     key1 = 0,
     key2 = 0,
     key3 = 0,

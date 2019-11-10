@@ -38,16 +38,16 @@ function GameManager.Click(gameObject)
 
     -- 出口
     if element.type == CS.Shuai.Element.ElementType.Exit then
-        GameManager.ClickExit(element)
+        GameManager.Click_exit(element)
     -- 门
     elseif element.type == CS.Shuai.Element.ElementType.Door then
-        GameManager.ClickDoor(element)
+        GameManager.Click_door(element)
     -- 道具
     elseif element.type == CS.Shuai.Element.ElementType.Item then
-        GameManager.ClickItem(element)
+        GameManager.Click_item(element)
     -- 敌人
     elseif element.type == CS.Shuai.Element.ElementType.Enemy then
-
+        GameManager.Click_enemy(element)
     end
 
 
@@ -56,7 +56,7 @@ function GameManager.Click(gameObject)
 end
 
 -- 出口
-function GameManager.ClickExit(element)
+function GameManager.Click_exit(element)
     if element.id == 1 then
         SB.floor = SB.floor + 1
         TipManager.Show("上一层")
@@ -67,7 +67,7 @@ function GameManager.ClickExit(element)
 end
 
 -- 门
-function GameManager.ClickDoor(element)
+function GameManager.Click_door(element)
     if element.id == 1 then
         if SB.key1 >= 1 then
             SB.key1 = SB.key1 - 1
@@ -100,7 +100,7 @@ function GameManager.ClickDoor(element)
 end
 
 -- 道具
-function GameManager.ClickItem(element)
+function GameManager.Click_item(element)
     -- 宝石
     if element.id == 1 then -- 红宝石
         SB.atk = SB.atk + 3
@@ -137,5 +137,16 @@ function GameManager.ClickItem(element)
 
     UnityEngine.Object.DestroyImmediate(element.gameObject)
 end
+
+-- 敌人
+function GameManager.Click_enemy(element)
+    local enemy = data_enemy[element.id]
+    
+    SB.gold = SB.gold + enemy.gold
+
+
+    UnityEngine.Object.DestroyImmediate(element.gameObject)
+end
+
 
 GameManager.__init__()

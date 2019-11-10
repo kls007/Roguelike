@@ -47,7 +47,7 @@ function _M:Refresh()
     self.Text_hp_value.text = SB.hp
     self.Text_atk_value.text = SB.atk
     self.Text_def_value.text = SB.def
-    self.Text_money_value.text = SB.money
+    self.Text_money_value.text = SB.gold
 
     self.Text_key1_value.text = SB.key1
     self.Text_key2_value.text = SB.key2
