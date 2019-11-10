@@ -24,12 +24,13 @@ function _M.require()
     require "manager/UIManager"
     require "manager/TipManager"
     require "manager/AgentManager"
+
+    require "data/data_enemy"
     
     
     require "ShuaiTest"
 
     
-
     _M.requireGUI()
 end
 

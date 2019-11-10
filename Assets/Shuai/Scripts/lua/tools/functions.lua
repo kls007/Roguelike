@@ -62,3 +62,29 @@ function functions.SetActiveAllChildren(parent, active)
         child.gameObject:SetActive(active)
     end
 end
+
+---
+array = array or {}
+function array.filter(arr, func)
+    local res = {}
+    for index, value in ipairs(arr) do
+        if func(value) then
+            table.insert(res,value)
+        end
+    end
+    return res
+end
+
+function array.reduce(arr,func,init)
+    for index, value in ipairs(arr) do
+        init = func(init,value,index)
+    end
+    return init
+end
+
+function table.reduce(tbl,func,init)
+    for key, value in pairs(tbl) do
+        init = func(init,value,key)
+    end
+    return init
+end

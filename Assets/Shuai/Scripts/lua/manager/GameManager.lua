@@ -140,8 +140,18 @@ end
 
 -- 敌人
 function GameManager.Click_enemy(element)
-    local enemy = data_enemy[element.id]
+    local enemyList = array.filter(
+        data_enemy,
+        function(item)
+            return element.id == item.id
+        end
+    )
+
+    print_t(enemyList, "enemyList")
     
+    local enemy = enemyList[1]
+
+    SB.hp = SB.hp - enemy.atk
     SB.gold = SB.gold + enemy.gold
 
 
