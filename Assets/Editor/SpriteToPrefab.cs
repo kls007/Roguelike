@@ -36,66 +36,85 @@ public class SpriteToPrefab : MonoBehaviour
         //创建prefab
         makeSpritePrefabs(originDirInfo.GetFiles("*.jpg", SearchOption.AllDirectories), targetDir, type, tag, layer);
         makeSpritePrefabs(originDirInfo.GetFiles("*.png", SearchOption.AllDirectories), targetDir, type, tag, layer);
+
         EditorUtility.ClearProgressBar();
     }
 
     private static void makeSpritePrefabs(FileInfo[] files, string targetDir, Element.ElementType type, string tag, string layer)
     {
-        //foreach (FileInfo file in files)
         for (int i = 0; i < files.Length; i++)
         {
-            //int index = files.indexOf(file);
-            FileInfo file = files[i];
-            //获取全路径
-            string allPath = file.FullName;
-            MonoBehaviour.print(allPath);
-            Debug.Log(file);
-
-            //获取资源路径            
-            string assetPath = allPath.Substring(allPath.IndexOf("Assets"));
-            MonoBehaviour.print("assetPath " + assetPath);
-
-            //加载贴图            
-            Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
-
-            //创建绑定了贴图的 GameObject 对象            
-            GameObject go = new GameObject(sprite.name);
-            go.tag = tag;
-
-            SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-            sr.sprite = sprite;
-            sr.sortingLayerName = layer;
-
-            BoxCollider2D bc2 = go.AddComponent<BoxCollider2D>();
-            bc2.isTrigger = true;
+            if (type == Element.ElementType.Item)
+            {
+                FileInfo file = files[i];
+                makeSpritePrefabs(file, targetDir, i + 1, type, tag, layer);
+            }
+            else if (type == Element.ElementType.Enemy)
+            {
+                if (i % 4 == 0)
+                {
+                    FileInfo file = files[i];
+                    makeSpritePrefabs(file, targetDir, (i / 4) + 1, type, tag, layer);
+                }
+            }
             
-            Element element = go.AddComponent<Element>();
-            element.id = i + 1;
-            element.type = type;
-            EditorUtility.DisplayProgressBar("创建" + sprite.name, "创建" + sprite.name, 1f);
-
-            //获取图片名称
-            string imageName = assetPath.Replace("Assets" + ORIGIN_DIR + "\\", "");
-
-            //去掉后缀
-            imageName = imageName.Substring(0, imageName.IndexOf("."));
-
-            //得到最终路径
-            string prefabPath = targetDir + "\\" + imageName + ".prefab";
-
-            //得到应用当前目录的路径
-            prefabPath = prefabPath.Substring(prefabPath.IndexOf("Assets"));
-
-            //创建目录
-            Directory.CreateDirectory(prefabPath.Substring(0, prefabPath.LastIndexOf("\\")));
-
-            //生成预制件
-            PrefabUtility.CreatePrefab(prefabPath.Replace("\\", "/"), go);
-
-            //销毁对象
-            GameObject.DestroyImmediate(go);
         }
-        EditorUtility.ClearProgressBar();
+
+        //EditorUtility.ClearProgressBar();
     }
 
+
+    private static void makeSpritePrefabs(FileInfo file, string targetDir, int id, Element.ElementType type, string tag, string layer)
+    {
+        //获取全路径
+        string allPath = file.FullName;
+        MonoBehaviour.print(allPath);
+        Debug.Log(file);
+
+        //获取资源路径            
+        string assetPath = allPath.Substring(allPath.IndexOf("Assets"));
+        MonoBehaviour.print("assetPath " + assetPath);
+
+        //加载贴图            
+        Sprite sprite = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Sprite)) as Sprite;
+
+        //创建绑定了贴图的 GameObject 对象
+        GameObject go = new GameObject(sprite.name);
+        go.tag = tag;
+
+        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingLayerName = layer;
+
+        BoxCollider2D bc2 = go.AddComponent<BoxCollider2D>();
+        bc2.isTrigger = true;
+
+        Element element = go.AddComponent<Element>();
+        element.id = id;
+        element.type = type;
+        EditorUtility.DisplayProgressBar("创建" + sprite.name, "创建" + sprite.name, 1f);
+
+        //获取图片名称
+        string imageName = assetPath.Replace("Assets" + ORIGIN_DIR + "\\", "");
+
+        //去掉后缀
+        imageName = imageName.Substring(0, imageName.IndexOf("."));
+
+        //得到最终路径
+        string prefabPath = targetDir + "\\" + imageName + ".prefab";
+
+        //得到应用当前目录的路径
+        prefabPath = prefabPath.Substring(prefabPath.IndexOf("Assets"));
+
+        //创建目录
+        Directory.CreateDirectory(prefabPath.Substring(0, prefabPath.LastIndexOf("\\")));
+
+        //生成预制件
+        PrefabUtility.CreatePrefab(prefabPath.Replace("\\", "/"), go);
+
+        //销毁对象
+        GameObject.DestroyImmediate(go);
+        
+        
+    }
 }
