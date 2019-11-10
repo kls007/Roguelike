@@ -44,7 +44,7 @@ end
 
 
 function _M.MouseClick(gameObject)
-    GameManager.Main(gameObject)
+    GameManager.Click(gameObject)
 
 do return end
 

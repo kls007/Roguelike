@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5029644777834168523}
   - component: {fileID: 1702540631940581017}
   - component: {fileID: 867161472703266193}
-  - component: {fileID: 4994070914834288439}
+  - component: {fileID: 8225683298315253414}
   m_Layer: 0
   m_Name: down_floor
   m_TagString: exit
@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1597256667
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bf0fc6569a97ccb42a6749d9c6af0316, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,7 +107,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4994070914834288439
+--- !u!114 &8225683298315253414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3443043989261095632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bee80e3f9efad640ba44b57b4f5a00a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8546518a3e3b66c4eb195f305c364251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
   type: 0
-  name: "\u4E0B\u697C"
+  name: 
   info: 

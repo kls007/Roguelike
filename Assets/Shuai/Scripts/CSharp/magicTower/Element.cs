@@ -11,10 +11,10 @@ namespace Shuai
     {
         public enum ElementType
         {
-            Exit,
-            Door,
-            Item,
-            Enemy,
+            Exit, //入口
+            Door, //门
+            Item, //物品
+            Enemy, //敌人
         };
 
         public int id = 1;

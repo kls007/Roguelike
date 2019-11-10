@@ -6,10 +6,13 @@ local _M = GameManager
 GameManager.floorList = {}
 
 function _M.__init__()
-    local floors = UnityEngine.GameObject.Find("Grid/floor").transform:GetComponentsInChildren(typeof(CS.Floor))
+    local floors = UnityEngine.GameObject.Find("Grid/floor").transform
+    print_t(floors.childCount, "floors")
 
-    for i = 1, floors.Length, 1 do
-        GameManager.floorList[i] = floors[i - 1]
+    for i = 1, floors.childCount, 1 do
+        local child = floors:GetChild(i - 1)
+        local floor = child.transform:GetComponent(typeof(CS.Shuai.Floor))
+        GameManager.floorList[i] = floor
     end
 
     print_t(GameManager.floorList, "GameManager.floorList")
@@ -25,74 +28,114 @@ function GameManager.RefreshFloor(floor)
 end
 
 -- 主函数
-function GameManager.Main(gameObject)
+function GameManager.Click(gameObject)
+    local element = gameObject.transform:GetComponent("Element")
 
-    local item = gameObject.transform:GetComponent("Element")
-    local exit = gameObject.transform:GetComponent("Exit")
-    print_t(exit, "exit")
-    print_t(item, "item")
-    print_t(item.id, "id")
-    print_t(item.type, "type")
+    -- print_t(element, "element")
+    -- print_t(element.id, "id")
+    -- print_t(element.type, "type")
 
-    if item.id == 1 then
-        SB.floor = SB.floor + 1
-        TipManager.Show("上一层")
-    elseif item.id == 2 then
-        SB.floor = SB.floor - 1
-        TipManager.Show("下一层")
+
+    -- 出口
+    if element.type == CS.Shuai.Element.ElementType.Exit then
+        GameManager.ClickExit(element)
+    -- 门
+    elseif element.type == CS.Shuai.Element.ElementType.Door then
+        GameManager.ClickDoor(element)
+    -- 道具
+    elseif element.type == CS.Shuai.Element.ElementType.Item then
+        GameManager.ClickItem(element)
+    -- 敌人
+    elseif element.type == CS.Shuai.Element.ElementType.Enemy then
+
     end
+
 
     GameManager.RefreshFloor(SB.floor)
     HudPanel:Refresh()
+end
 
-do return end
+-- 出口
+function GameManager.ClickExit(element)
+    if element.id == 1 then
+        SB.floor = SB.floor + 1
+        TipManager.Show("上一层")
+    elseif element.id == 2 then
+        SB.floor = SB.floor - 1
+        TipManager.Show("下一层")
+    end
+end
 
-
-    -- 门
-    if item.id == 1 then
+-- 门
+function GameManager.ClickDoor(element)
+    if element.id == 1 then
         if SB.key1 >= 1 then
             SB.key1 = SB.key1 - 1
+            UnityEngine.Object.DestroyImmediate(element.gameObject)
         else
             TipManager.Show("钥匙1不足")
-            return
         end
-    elseif item.id == 2 then
+    elseif element.id == 2 then
         if SB.key2 >= 1 then
             SB.key2 = SB.key2 - 1
+            UnityEngine.Object.DestroyImmediate(element.gameObject)
         else
             TipManager.Show("钥匙2不足")
-            return
+        end
+    elseif element.id == 3 then
+        if SB.key3 >= 1 then
+            SB.key3 = SB.key3 - 1
+            UnityEngine.Object.DestroyImmediate(element.gameObject)
+        else
+            TipManager.Show("钥匙3不足")
+        end
+    elseif element.id == 4 then
+        if SB.key4 >= 1 then
+            SB.key4 = SB.key4 - 1
+            UnityEngine.Object.DestroyImmediate(element.gameObject)
+        else
+            TipManager.Show("钥匙4不足")
         end
     end
+end
+
+-- 道具
+function GameManager.ClickItem(element)
+    -- 宝石
+    if element.id == 1 then -- 红宝石
+        SB.atk = SB.atk + 3
+    elseif element.id == 2 then -- 紫宝石
+        SB.def = SB.def + 3
+    elseif element.id == 3 then -- 绿宝石
+        SB.def = SB.def + 1
+    elseif element.id == 4 then -- 黄宝石
+        SB.def = SB.def + 1
+    
+    -- 血瓶
+    elseif element.id == 5 then -- 红血瓶
+        SB.hp = SB.hp + 100
+    elseif element.id == 6 then -- 紫血瓶
+        SB.hp = SB.hp + 200
+    elseif element.id == 7 then -- 绿血瓶
+        SB.hp = SB.hp + 300
+    elseif element.id == 8 then -- 黄血瓶
+        SB.hp = SB.hp + 400
 
     -- 钥匙
-    if item.id == 101 then
+    elseif element.id == 15 then -- 黄钥匙
         SB.key1 = SB.key1 + 1
-    elseif item.id == 102 then
+    elseif element.id == 16 then -- 紫钥匙
         SB.key2 = SB.key2 + 1
-    elseif item.id == 102 then
+    elseif element.id == 17 then -- 红钥匙
         SB.key3 = SB.key3 + 1
+    elseif element.id == 18 then -- 绿钥匙 暂时没有
+        -- SB.key4 = SB.key4 + 1
 
-    -- 攻防
-    elseif item.id == 201 then
-        SB.atk = SB.atk + 1
-    elseif item.id == 202 then
-        SB.def = SB.def + 1
-
-    -- hp血瓶
-    elseif item.id == 301 then
-        SB.hp = SB.hp + 100
-    elseif item.id == 302 then
-        SB.hp = SB.hp + 200
+    else
+        return
     end
-    
 
-    UnityEngine.Object.DestroyImmediate(gameObject)
-    HudPanel:Refresh()
-
-
-    -- Event.Dispatch("KeyboardEvent", {keyCode = keyCode})
-    -- tools.trycatch(ShuaiTest.Refresh, {params = {keyCode = keyCode}, errorMode = true})
+    UnityEngine.Object.DestroyImmediate(element.gameObject)
 end
 
 GameManager.__init__()

@@ -16,6 +16,8 @@ function _M:InitView()
     gameObject = UnityEngine.GameObject.Find("Canvas/Root_Panel/HudPanel").gameObject
     transform = gameObject.transform
 
+    gameObject:SetActive(true)
+
     self.Image_bg = transform:Find("$bg"):GetComponent("Image");
     self.Text_floor_value = transform:Find("$bg/floor/$floor_value"):GetComponent("Text");
     self.Text_hp_value = transform:Find("$bg/attribute/hp/$hp_value"):GetComponent("Text");
@@ -40,7 +42,7 @@ function _M:Main()
 end
 
 function _M:Refresh()
-    self.Text_floor_value.text = SB.floor
+    self.Text_floor_value.text = "第" .. SB.floor .. "层"
 
     self.Text_hp_value.text = SB.hp
     self.Text_atk_value.text = SB.atk

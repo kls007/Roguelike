@@ -32,6 +32,17 @@ function _M.TestQ()
     -- print_t(_VERSION, "_VERSION")
     
     
+    -- print_t(CS.Shuai.Element.ElementType.Door, "CS.Shuai.Element")
+
+
+    local floors = UnityEngine.GameObject.Find("Grid/floor").transform
+    print_t(floors.childCount, "floors")
+
+    for i = 1, floors.childCount, 1 do
+        local child = floors:GetChild(i - 1)
+        print_t(child, "child")
+    end
+
     -- print_t(ABManager.abList.sprite_country, "ABManager.abList.sprite_country")
     -- AlertPanel:Create(
     --     {
@@ -50,8 +61,9 @@ function _M.TestQ()
 
     -- print_t(SB, "帅哥")
 
-    print_t(CS.Shuai.SpriteRes, "SpriteRes")
-    print_t(CS.Shuai.Item, "Item")
+    -- print_t(CS.Shuai.SpriteRes, "SpriteRes")
+    -- print_t(CS.Shuai.Item, "Item")
+
 
     -- local self = LanguagePanel
 
